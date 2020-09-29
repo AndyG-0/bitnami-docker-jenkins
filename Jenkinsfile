@@ -5,6 +5,7 @@ pipeline {
             steps {
                 script {
                     echo 'Create Dockerfile ...'
+                    cd ./2/debian-10/
                     sh 'docker build -t registry-192.168.1.38.nip.io/bitnami/jenkins:249.1 .'
                 }
             }
