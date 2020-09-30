@@ -35,7 +35,7 @@ RUN apt-get install -y tini
 
 # could use ADD but this one does not check Last-Modified header neither does it allow to control checksum
 # see https://github.com/docker/docker/issues/8331
-RUN mkdir -p /opt/bitnami/jenkins/ && chown 1001:0 /opt/bitnami/jenkins && chmod 777 /opt/bitnami/jenkins
+RUN mkdir -p /opt/bitnami/jenkins/
 RUN curl -fsSL ${JENKINS_URL} -o /opt/bitnami/jenkins/jenkins.war \
   && echo "${JENKINS_SHA}  /opt/bitnami/jenkins/jenkins.war" | sha256sum -c -
 
@@ -47,6 +47,12 @@ RUN rm -r /var/lib/apt/lists /var/cache/apt/archives
 RUN mkdir -p /usr/share/jenkins/ref
 
 COPY rootfs /
+
+# Add jenkins user
+RUN cat /opt/bitnami/jenkins/nssgroup | tee /etc/group
+RUN cat /opt/bitnami/jenkins/nsspasswd | tee /etc/passwd
+RUN chown 1001:0 /opt/bitnami/jenkins/ && chmod 777 /opt/bitnami/jenkins/
+
 RUN ln -sf /install-plugins.sh /usr/local/bin/install-plugins.sh
 ENV BITNAMI_APP_NAME="jenkins" \
     BITNAMI_IMAGE_VERSION="2.249.1" \
