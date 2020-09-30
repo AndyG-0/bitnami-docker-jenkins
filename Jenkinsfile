@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     echo 'Create Dockerfile ...'
-                    sh 'docker build -t registry-192.168.1.38.nip.io/bitnami/jenkins:249.1 ./2/debian-10/'
+                    sh 'docker build -t registry-192.168.1.38.nip.io/bitnami/jenkins:2.249.1 ./2/debian-10/'
                 }
             }
         }
@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     echo 'Push Docker Image ...'
-                    sh 'docker push registry-192.168.1.38.nip.io/bitnami/jenkins:249.1'
+                    sh 'docker push registry-192.168.1.38.nip.io/bitnami/jenkins:2.249.1'
                 }
             }
         }
