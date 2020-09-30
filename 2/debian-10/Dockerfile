@@ -19,6 +19,9 @@ COPY prebuildfs /
 RUN install_packages ca-certificates curl fontconfig fonts-dejavu-extra gzip libc6 libcom-err2 libcurl4 libffi6 libgcc1 libgcrypt20 libgmp10 libgnutls30 libgpg-error0 libgssapi-krb5-2 libhogweed4 libidn2-0 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-2.4-2 libnettle6 libnghttp2-14 libp11-kit0 libpsl5 librtmp1 libsasl2-2 libssh2-1 libssl1.1 libtasn1-6 libunistring2 openssh-client procps sudo tar unzip zlib1g
 RUN /build/bitnami-user.sh
 RUN /build/install-nami.sh
+
+RUN apt-get update && apt-get upgrade -y
+
 # RUN bitnami-pkg install java-1.8.265-0 --checksum 6c85e8df954fca444f2471195524db015ec24a67e42f43579401f2adb5189cb8
 RUN apt-get install default-jdk
 
@@ -32,20 +35,20 @@ RUN apt-get install tini
 
 # could use ADD but this one does not check Last-Modified header neither does it allow to control checksum
 # see https://github.com/docker/docker/issues/8331
-RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war \
-  && echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha256sum -c -
+RUN curl -fsSL ${JENKINS_URL} -o /opt/bitnami/jenkins/jenkins.war \
+  && echo "${JENKINS_SHA}  /opt/bitnami/jenkins/jenkins.war" | sha256sum -c -
 
 # RUN bitnami-pkg install gosu-1.12.0-2 --checksum 4d858ac600c38af8de454c27b7f65c0074ec3069880cb16d259a6e40a46bbc50
 RUN apt-get install gosu
 
-RUN apt-get update && apt-get upgrade -y && \
-    rm -r /var/lib/apt/lists /var/cache/apt/archives
+RUN rm -r /var/lib/apt/lists /var/cache/apt/archives
+
 RUN mkdir -p /usr/share/jenkins/ref
 
 COPY rootfs /
 RUN ln -sf /install-plugins.sh /usr/local/bin/install-plugins.sh
 ENV BITNAMI_APP_NAME="jenkins" \
-    BITNAMI_IMAGE_VERSION="2.249.1-debian-10-r25" \
+    BITNAMI_IMAGE_VERSION="2.249.1" \
     DISABLE_JENKINS_INITIALIZATION="no" \
     JAVA_OPTS="" \
     JENKINS_HOME="/opt/bitnami/jenkins/jenkins_home" \
