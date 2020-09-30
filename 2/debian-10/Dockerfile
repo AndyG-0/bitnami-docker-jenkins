@@ -23,13 +23,13 @@ RUN /build/install-nami.sh
 RUN apt-get update && apt-get upgrade -y
 
 # RUN bitnami-pkg install java-1.8.265-0 --checksum 6c85e8df954fca444f2471195524db015ec24a67e42f43579401f2adb5189cb8
-RUN apt-get install default-jdk
+RUN apt-get install -y default-jdk
 
 # RUN bitnami-pkg install git-2.28.0-0 --checksum bda714065995df169ab17f11b3a638a106aec83b00bcbfb325b36b51f29d1704
-RUN apt-get install git
+RUN apt-get install -y git
 
 # RUN bitnami-pkg install tini-0.19.0-0 --checksum 9a8ae20be31a518f042fcec359f2cf35bfdb4e2a56f2fa8ff9ef2ecaf45da80c
-RUN apt-get install tini
+RUN apt-get install -y tini
 
 # RUN bitnami-pkg unpack jenkins-2.249.1-0 --checksum c3a1d8e29cdf0aeeaef8fc908d38eb74f3976dae1d655ae344f0a23d8735f901
 
@@ -39,7 +39,7 @@ RUN curl -fsSL ${JENKINS_URL} -o /opt/bitnami/jenkins/jenkins.war \
   && echo "${JENKINS_SHA}  /opt/bitnami/jenkins/jenkins.war" | sha256sum -c -
 
 # RUN bitnami-pkg install gosu-1.12.0-2 --checksum 4d858ac600c38af8de454c27b7f65c0074ec3069880cb16d259a6e40a46bbc50
-RUN apt-get install gosu
+RUN apt-get install -y gosu
 
 RUN rm -r /var/lib/apt/lists /var/cache/apt/archives
 
