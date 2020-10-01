@@ -51,8 +51,8 @@ COPY rootfs /
 RUN ls -l /opt/bitnami/jenkins/
 
 # Add jenkins user
-RUN cat /opt/bitnami/jenkins/nssgroup | tee /etc/group
-RUN cat /opt/bitnami/jenkins/nsspasswd | tee /etc/passwd
+RUN cat /opt/bitnami/jenkins/nss_group | tee /etc/group
+RUN cat /opt/bitnami/jenkins/nss_passwd | tee /etc/passwd
 RUN chown 1001:0 /opt/bitnami/jenkins/ && chmod 777 /opt/bitnami/jenkins/
 
 RUN ln -sf /install-plugins.sh /usr/local/bin/install-plugins.sh

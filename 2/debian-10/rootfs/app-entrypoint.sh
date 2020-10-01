@@ -17,4 +17,6 @@ if [[ "$1" == "nami" && "$2" == "start" ]] || [[ "$1" == "/run.sh" ]]; then
     info "Starting gosu... "
 fi
 
+echo "running with tini ... $@"
+
 exec tini -- "$@"
