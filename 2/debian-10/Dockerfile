@@ -48,6 +48,8 @@ RUN mkdir -p /usr/share/jenkins/ref
 
 COPY rootfs /
 
+RUN ls -l /opt/bitnami/jenkins/
+
 # Add jenkins user
 RUN cat /opt/bitnami/jenkins/nssgroup | tee /etc/group
 RUN cat /opt/bitnami/jenkins/nsspasswd | tee /etc/passwd
@@ -61,7 +63,6 @@ ENV BITNAMI_APP_NAME="jenkins" \
     JENKINS_HOME="/opt/bitnami/jenkins/jenkins_home" \
     JENKINS_PASSWORD="bitnami" \
     JENKINS_USERNAME="user" \
-    LD_PRELOAD="/opt/bitnami/common/lib/libnss_wrapper.so" \
     LNAME="jenkins" \
     NAMI_PREFIX="/.nami" \
     NSS_WRAPPER_GROUP="/opt/bitnami/jenkins/nss_group" \
