@@ -48,8 +48,6 @@ RUN mkdir -p /usr/share/jenkins/ref
 
 COPY rootfs /
 
-RUN ls -l /opt/bitnami/jenkins/
-
 # Add jenkins user
 RUN cat /opt/bitnami/jenkins/nss_group | tee /etc/group
 RUN cat /opt/bitnami/jenkins/nss_passwd | tee /etc/passwd
